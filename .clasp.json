@@ -1,0 +1,15 @@
+{
+    "scriptId": "1ZaYNlq2P3Kk6xvNz_eQn2la0nkHpTllC-3xVZZlciMztV2-lU2wl0oVt",
+    "fileExtension": "ts",
+    "filePushOrder": [
+        "EventHandler.ts",
+        "SheetHelper.ts",
+        "LLogger.ts",
+        "VkHelper.ts",
+        "VkBot.ts",
+        "LApi.ts",
+        "LoggingBase.ts",
+        "CryptoHelper.ts",
+        "Constants.ts"
+    ]
+}
