@@ -7,15 +7,13 @@ declare interface User {
     cardHash: string;
 }
 
-class LApi {
+class Api extends LoggingBase {
     constructor (sheetHelper: SheetHelper, logger: LLogger) {
-      // super(logger);
-      this.log = logger.getLoggerFor("LApi");
+      super(logger);
       this.sheetHelper = sheetHelper;
     }
 
     sheetHelper: SheetHelper;
-    log: LogFunc;
 
     getUserList(): User[] {
         const staff = this.sheetHelper.getStaffRows();
@@ -32,7 +30,7 @@ class LApi {
     }
 
     getUserListUpdatedIfSince(date: string): User[] | null {
-        if (this.sheetHelper.getLastUpdatedFlag() === date) {
+        if (this.sheetHelper.getLastUpdatedValue() === date) {
             return null;
         }
 
@@ -58,16 +56,4 @@ class LApi {
 
         return false;
     }
-
-
-    // /**
-    //  * Sorry...
-    //  */
-    // private wait = (ms: number): void => {
-    //     var start = new Date().getTime();
-    //     var end = start;
-    //     while (end < start + ms) {
-    //         end = new Date().getTime();
-    //     }
-    // }
 }

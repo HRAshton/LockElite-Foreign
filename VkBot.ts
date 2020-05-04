@@ -28,15 +28,18 @@ class VkBot extends LoggingBase {
         const timestamp = msgObj.date;
         const text = msgObj.text;
         const userId = msgObj.from_id;
-
-        if (text.toLowerCase() !== "открой") {
+        
+        const isCommand = Object.entries(BotCommandsLowercased).find(v => text.toLowerCase() === v[1]);
+        if (!isCommand) {
             return;
         }
+        this.log(LogLevel.Info, "Command received", text);
 
         const successful = this.sheetHelper.checkIfVkIdExists(userId);
-        this.log(LogLevel.Debug, "access check", (successful ? "granted" : "denied") + " for " + userId);
+        this.log(LogLevel.Debug, "Access check", `${successful ? "granted" : "denied"} for ${userId}`);
         if (!successful) {
             this.sendMessage(userId, "Вы не зарегистрированы. Обратитесь к Вашему куратору.", timestamp);
+            this.log(LogLevel.Warning, "Access denied", userId.toString());
             return;
         }
 
@@ -45,8 +48,9 @@ class VkBot extends LoggingBase {
         return;
     }
 
-    private sendMessage(target_id: number, text: string, randomId: number) {
-        var t = this.vkHelper.fetchVk("messages.send", { peer_id: target_id, message: text, random_id: (randomId ? randomId : Math.random()) });
-        return t;
+    
+    private sendMessage(target_id: number, text: string, randomId: number): void {
+        this.log(LogLevel.Debug, "Sending message", JSON.stringify([target_id, text, randomId]));
+        this.vkHelper.fetchVk("messages.send", { peer_id: target_id, message: text, random_id: (randomId ? randomId : Math.random()) });
     }
 }

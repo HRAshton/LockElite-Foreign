@@ -8,9 +8,9 @@ class VkHelper extends LoggingBase {
 
         const url = `https://api.vk.com/method/${method}?${queryString}`;
 
-        this.log("Fetching data from VK", undefined, url);
+        this.log(LogLevel.Debug, "Fetching data from VK", url);
         const text = UrlFetchApp.fetch(url).getContentText();
-        this.log("Data fetched from VK", undefined, text);
+        this.log(LogLevel.Debug, "Data fetched from VK", text);
 
         const response = JSON.parse(text).response;
 
@@ -19,7 +19,9 @@ class VkHelper extends LoggingBase {
 
     public getUseridByScreenName(screenName: string): number {
         const response = this.fetchVk("users.get", { user_ids: screenName });
+        const vkId = response[0].id;
 
-        return response[0].id
+        this.log(LogLevel.Debug, "Screen name resolved", vkId);
+        return vkId;
     }
 }

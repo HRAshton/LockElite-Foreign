@@ -3,13 +3,13 @@
     "fileExtension": "ts",
     "filePushOrder": [
         "EventHandler.ts",
+        "Constants.ts",
         "SheetHelper.ts",
+        "LoggingBase.ts",
         "LLogger.ts",
         "VkHelper.ts",
         "VkBot.ts",
-        "LApi.ts",
-        "LoggingBase.ts",
-        "CryptoHelper.ts",
-        "Constants.ts"
+        "Api.ts",
+        "CryptoHelper.ts"
     ]
 }
